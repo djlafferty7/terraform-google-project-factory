@@ -35,6 +35,9 @@ The module must enable the following APIs by default to ensure the environment i
 The module must enforce specific Organization Policies at the **Project Level** (or Folder Level) to override any loose defaults.
 1.  **Disable Key Hazards:** Enforce `iam.disableServiceAccountKeyCreation` to prevent unmanaged credentials.
 2.  **Modern Storage:** Enforce `storage.uniformBucketLevelAccess` to prevent legacy ACL usage.
+3.  **Identity Isolation:** Enforce `iam.allowedPolicyMemberDomains` to restrict IAM grants to the organization's domain.
+4.  **Secure Compute Access:** Enforce `compute.requireOsLogin` to ensure OS-level access is tied to IAM.
+5.  **No Public IPs:** Enforce `compute.vmExternalIpAccess` (deny all) to prevent VMs from having external IP addresses.
 
 ## 4. Input Interface (Variables)
 The module must accept the following inputs:
@@ -44,6 +47,7 @@ The module must accept the following inputs:
 * `consultancy_group_email` (string): Email of the internal engineering group.
 * `client_admin_group_email` (string): Email of the client admin group.
 * `region` (string): Default region for resources (default: `us-central1` or similar).
+* `directory_customer_id` (string): The Google Workspace Customer ID.
 
 ## 5. Definition of Done
 The V1 build is considered complete when:
