@@ -16,7 +16,51 @@ This module automates the setup of a client environment with the following featu
     *   Enforcing OS Login for Compute Engine.
     *   Blocking all external IP access for VMs.
 
-## Usage
+## Quick Start (Zero-Inference)
+
+For a fully automated setup, use the provided `deploy.sh` script. This script will:
+1. Check your environment prerequisites.
+2. Interactively prompt you for all required inputs.
+3. Automatically create the required Google Groups (if you have permissions).
+4. Run Terraform to deploy the infrastructure.
+5. Validate the deployment with security checks.
+
+**Run the following command:**
+
+```bash
+./deploy.sh
+```
+
+---
+
+## Prerequisites
+
+Before running the deployment, ensure you have the following permissions and information.
+
+### Required Permissions
+The user running the script needs these roles on the **Organization**:
+*   **Folder Creator** (`roles/resourcemanager.folderCreator`): To create the client folder.
+*   **Project Creator** (`roles/resourcemanager.projectCreator`): To create the project.
+*   **Billing User** (`roles/billing.user`): To link the project to the billing account.
+*   **Group Admin** (Optional): To create Google Groups automatically. If you lack this, you can provide existing group emails.
+
+### How to Find Your IDs
+
+| ID Type | How to Find It |
+| :--- | :--- |
+| **Organization ID** | Run `gcloud organizations list` or look at the top-left dropdown in the Cloud Console. |
+| **Billing Account ID** | Run `gcloud beta billing accounts list` or go to **Billing** in the Console. |
+| **Customer ID** | Go to **admin.google.com** > **Account** > **Account Settings**. It usually starts with `C...`. |
+
+### Important Notes
+*   **New Projects Only**: This tool is designed to create a **NEW** project and folder structure. It cannot be used to "adopt" or import existing projects.
+*   **Clean Slate**: The deployment enforces a clean networking slate (`auto_create_network = false`) and strict security policies.
+
+---
+
+## Manual Usage (Advanced)
+
+If you prefer to run Terraform manually or integrate this into a CI/CD pipeline:
 
 1.  **Clone the repository.**
 2.  **Create a `terraform.tfvars` file** with your values (do not commit this file):
@@ -52,7 +96,7 @@ This module automates the setup of a client environment with the following featu
 
 ## Testing & Validation
 
-This project includes a validation script `validate.sh` to verify the environment after provisioning.
+This project includes a validation script `validate.sh` to verify the environment after provisioning. The `deploy.sh` script runs this automatically.
 
 ### Prerequisites for Validation
 *   `gcloud` CLI installed and authenticated.
