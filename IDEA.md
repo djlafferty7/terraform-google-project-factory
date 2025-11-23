@@ -5,7 +5,7 @@
 **Output:** A Terraform module (V1) that provisions a secure, opinionated, and billable Google Cloud Project encapsulated within a dedicated client folder.
 
 ## 2. Technical Foundation
-* **Core Engine:** We will not build from scratch. We must leverage the [Google Cloud Foundation Toolkit](https://cloud.google.com/foundation/docs/terraform-modules).
+* **Core Engine:** We will not build from scratch. We must leverage the Google Cloud Foundation Toolkit.
 * **Upstream Module:** specifically `terraform-google-modules/project-factory/google`.
 * **Infrastructure as Code:** Terraform (HCL).
 
